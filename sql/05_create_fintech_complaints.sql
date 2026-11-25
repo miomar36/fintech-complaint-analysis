@@ -1,6 +1,8 @@
 -- Create fintech_complaints: raw rows for the selected fintech company names.
 USE cfpb;
 
+DROP TABLE IF EXISTS fintech_complaints;
+
 CREATE TABLE fintech_complaints AS
 SELECT *
 FROM complaints_raw

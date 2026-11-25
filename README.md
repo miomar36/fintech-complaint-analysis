@@ -58,7 +58,7 @@ These are areas a complaint or operations team could examine, not conclusions ab
 - Relief rates use closed complaints only, because 2026 includes in-progress cases.
 - January 2025 is a Block and Zelle outlier. It coincided with a public complaint campaign and CFPB enforcement news, and the cause is not established from this data.
 - November 2026 is partial and excluded from trends.
-- The Excel Top issues and Relief Rate pivots include the partial November 2026 data, while the Monthly pivot and the Power BI charts exclude it. Power BI cards cover all 12 companies (7.5% relief), so they are not comparable to the Excel relief rate for the 10-company series.
+- The Excel Monthly, Top issues and Relief Rate pivots include the partial November 2026 data. The Other 10 trend tab and the Power BI charts exclude it. Power BI cards cover all 12 companies (7.5% relief), so they are not comparable to the Excel relief rate for the 10-company series. Because the dashboard excludes November, a few relief rates differ slightly from Excel and SQL (for example Wise 2026: 13.2% vs 13.0%).
 - The structural-break test is a simple linear-trend model and cannot rule out a small shift. The cause of the 2026 changes is not established.
 
 ## How to reproduce
@@ -79,7 +79,7 @@ Data files are stored outside the repository (default `C:\data\cfpb`, configurab
 3. `python scripts/filter_by_date.py` keeps rows received on or after 2024-01-01.
 4. Run `sql/01` and `sql/02` to create and load `complaints_raw` (`scripts/mysql_run.py` runs a file with credentials from `.env`; use `--local-infile` for the load).
 5. Run `sql/03` to `sql/10` to profile the data, choose the companies and products, and build `fintech_complaints`, `fintech_core` and `fintech_clean`.
-6. Run `sql/11` to `sql/20` for the analysis queries (volume, top issues, resolution outcomes, Jan 2025 breakdowns, relief rates).
+6. Run `sql/11` to `sql/21` for the analysis queries (volume, top issues, resolution outcomes, Jan 2025 breakdowns, relief rates, and the figures quoted in the key findings).
 7. `python scripts/export_clean.py` exports `fintech_clean` to CSV.
 8. Upload the CSV to Google Colab and run `notebooks/01_cfpb_analysis.ipynb`.
 9. Open the Power BI and Excel files, which load the same CSV.

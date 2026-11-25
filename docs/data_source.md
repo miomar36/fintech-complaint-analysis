@@ -19,12 +19,13 @@
 - Table: `complaints_raw` (15 text columns, no cleaning; DDL in `sql/01_create_staging.sql`, load in `sql/02_load_staging.sql`)
 - Rows loaded: 14,607,798 (matches the filtered CSV)
 - Rows per year: 2024 = 2,734,253; 2025 = 5,442,926; 2026 = 6,430,619
-- Date range: 2024-01-01 to 2026-11-12
+- Date range (all rows in `complaints_raw`): 2024-01-01 to 2026-11-12. The fintech rows used in the analysis (`fintech_clean`) run to 2026-11-11.
 - Profiling queries: `sql/03_profile_staging.sql`
 
 ## Notes
 - The file has 15 columns; it has no consumer narrative, consent or disputed columns.
 - The most recent month (2026-11) covers 12 days and averages 15,494.5 complaints/day vs 24,656.6 for 2026-10, so it looks partial or still arriving.
+
 ## Context sources for the Jan 2025 Block/Zelle complaint surge
 - CFPB enforcement action, Block, Inc.: https://www.consumerfinance.gov/enforcement/actions/block-inc/
 - Consumer Reports on influencer-driven Zelle and Cash App complaints: https://www.consumerreports.org/money/scams-fraud/cfpb-not-giving-money-to-people-scammed-on-zelle-cash-app-a9372236265/

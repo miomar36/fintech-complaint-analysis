@@ -1,6 +1,8 @@
 -- Create fintech_core: fintech complaints limited to the 6 core products.
 USE cfpb;
 
+DROP TABLE IF EXISTS fintech_core;
+
 CREATE TABLE fintech_core AS
 SELECT *
 FROM fintech_complaints
