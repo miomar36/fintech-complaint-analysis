@@ -86,4 +86,4 @@ Data files are stored outside the repository (default `C:\data\cfpb`, configurab
 
 ## Contact
 
-[Your name] | [LinkedIn URL] | [Email] | [GitHub URL]
+Mohamed Omar | [LinkedIn](https://www.linkedin.com/in/visit-mohamedomar) | [GitHub](https://github.com/miomar36)
