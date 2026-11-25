@@ -1,3 +1,4 @@
+-- Profile complaints_raw: row counts, columns, date range, latest month and top companies and products.
 USE cfpb;
 
 -- Row counts

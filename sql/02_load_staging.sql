@@ -1,3 +1,4 @@
+-- Load the date-filtered CFPB CSV into complaints_raw (all text columns).
 USE cfpb;
 
 TRUNCATE TABLE complaints_raw;

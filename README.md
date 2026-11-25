@@ -6,7 +6,7 @@
 
 ## Project summary
 
-This project analyses 162,698 consumer complaints about 12 fintech and digital banking companies from the CFPB Consumer Complaint Database, covering January 2024 to November 2026. It examines which issues dominate, how complaints are resolved, and whether patterns changed in 2026. The work is done end to end in MySQL, Python, Excel and Power BI, with results reconciled across tools.
+This project analyzes 162,698 consumer complaints about 12 fintech and digital banking companies from the CFPB Consumer Complaint Database, covering January 2024 to November 2026. It examines which issues dominate, how complaints are resolved, and whether patterns changed in 2026. The work is done end to end in MySQL, Python, Excel and Power BI, with results reconciled across tools.
 
 ## Business questions
 
@@ -18,12 +18,12 @@ This project analyses 162,698 consumer complaints about 12 fintech and digital b
 
 - Source: CFPB Consumer Complaint Database, full bulk file (https://files.consumerfinance.gov/ccdb/complaints.csv.zip), downloaded 2026-11-13. Details are in `docs/data_source.md`.
 - Baseline period: 2024-01-01 to 2025-12-31. Comparison period: 2026-01-01 to the latest available date (2026-11-11).
-- November 2026 is a partial month (318 complaints through November 11) and is excluded from trend charts.
+- November 2026 is a partial month (318 complaints through November 11). It is excluded from the Power BI charts and the Excel "Other 10 trend" tab, while the Excel Monthly, Top issues and Relief Rate pivots include it.
 - Companies: 12 fintechs, each with 1,000+ complaints since 2024: Block, Early Warning (Zelle), PayPal, Coinbase, MoneyLion, Wise, Chime, Klarna, SoFi, Upstart, Affirm and Robinhood.
 - Products: 6 kept (money transfer or virtual currency, checking or savings, debt collection, payday or personal loan, credit card, prepaid card). Credit reporting was dropped because those complaints concern the bureaus, not the fintech.
 - Funnel: 14,607,798 rows since 2024, then 185,119 for the selected companies, then 162,698 after the product filter (the final analysis table).
 - Main series: the 10 companies other than Block and Zelle. Block and Zelle are shown separately because of the January 2025 surge.
-- Judgement calls: Chime Inc. is treated as a variant of Chime Financial, and TransferWise Ltd is treated as Wise.
+- Judgment calls: Chime Inc. is treated as a variant of Chime Financial, and TransferWise Ltd is treated as Wise.
 
 ## Tools used
 
@@ -45,7 +45,7 @@ Findings are for the 10 companies other than Block and Zelle unless noted.
 
 These are areas a complaint or operations team could examine, not conclusions about cause.
 
-- Review unauthorized-transaction complaints. Their share rose in 2026, so it is worth checking whether the increase reflects fraud controls, dispute handling or how complaints are categorised.
+- Review unauthorized-transaction complaints. Their share rose in 2026, so it is worth checking whether the increase reflects fraud controls, dispute handling or how complaints are categorized.
 - Look into why relief rates differ so widely by company (PayPal and Coinbase above 40% in 2026, several others under 11%). Differences in outcome coding may explain part of the gap.
 - Check how outcomes are recorded for companies reporting zero relief (Affirm, Robinhood). A true zero and a coding convention would call for different responses.
 - Investigate the MoneyLion drop from 24.9% to 0.9% to see whether it reflects a process change or a reporting change.
@@ -57,7 +57,7 @@ These are areas a complaint or operations team could examine, not conclusions ab
 - There are no customer counts, so compare shares and rates rather than raw volume.
 - Relief rates use closed complaints only, because 2026 includes in-progress cases.
 - January 2025 is a Block and Zelle outlier. It coincided with a public complaint campaign and CFPB enforcement news, and the cause is not established from this data.
-- November 2026 is partial and excluded from trends.
+- November 2026 is partial (318 complaints through November 11), so any figure that includes it is incomplete for that month. See Data and scope for where it is included or excluded.
 - The Excel Monthly, Top issues and Relief Rate pivots include the partial November 2026 data. The Other 10 trend tab and the Power BI charts exclude it. Power BI cards cover all 12 companies (7.5% relief), so they are not comparable to the Excel relief rate for the 10-company series. Because the dashboard excludes November, a few relief rates differ slightly from Excel and SQL (for example Wise 2026: 13.2% vs 13.0%).
 - The structural-break test is a simple linear-trend model and cannot rule out a small shift. The cause of the 2026 changes is not established.
 
@@ -76,7 +76,7 @@ Data files are stored outside the repository (default `C:\data\cfpb`, configurab
 
 1. Create a virtual environment and run `pip install -r requirements.txt`.
 2. `python -I scripts/download.py` downloads the CFPB bulk file.
-3. `python scripts/filter_by_date.py` keeps rows received on or after 2024-01-01.
+3. `python -I scripts/filter_by_date.py` keeps rows received on or after 2024-01-01.
 4. Run `sql/01` and `sql/02` to create and load `complaints_raw` (`scripts/mysql_run.py` runs a file with credentials from `.env`; use `--local-infile` for the load).
 5. Run `sql/03` to `sql/10` to profile the data, choose the companies and products, and build `fintech_complaints`, `fintech_core` and `fintech_clean`.
 6. Run `sql/11` to `sql/21` for the analysis queries (volume, top issues, resolution outcomes, Jan 2025 breakdowns, relief rates, and the figures quoted in the key findings).

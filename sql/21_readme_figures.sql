@@ -31,3 +31,34 @@ FROM fintech_clean
 WHERE company_response_to_consumer IN
     ('Closed with explanation', 'Closed with monetary relief', 'Closed with non-monetary relief')
   AND company_clean NOT IN ('Block', 'Early Warning (Zelle)');
+
+-- 3. Overall relief rate on closed complaints across all 12 companies (the Power BI card, 7.5%)
+SELECT
+    ROUND(100 * SUM(company_response_to_consumer IN
+        ('Closed with monetary relief', 'Closed with non-monetary relief'))
+        / COUNT(*), 1) AS relief_pct_all_12
+FROM fintech_clean
+WHERE company_response_to_consumer IN
+    ('Closed with explanation', 'Closed with monetary relief', 'Closed with non-monetary relief');
+
+-- 4. Rows in fintech_complaints, before the product filter (185,119)
+SELECT COUNT(*) AS fintech_complaints_rows FROM fintech_complaints;
+
+-- 5. Complaints per selected company since 2024, all products (each should be 1,000 or more).
+--    Chime Inc. is merged into Chime Financial and TransferWise Ltd is Wise, as in fintech_clean.
+SELECT
+    CASE
+        WHEN company IN ('Chime Financial Inc', 'Chime Inc.') THEN 'Chime'
+        WHEN company = 'TransferWise Ltd' THEN 'Wise'
+        ELSE company
+    END AS company_group,
+    SUM(complaints) AS complaints_since_2024
+FROM company_counts
+WHERE company IN (
+    'Block, Inc.', 'Early Warning Services, LLC', 'Paypal Holdings, Inc',
+    'Chime Financial Inc', 'Chime Inc.', 'Affirm Holdings, Inc', 'SOFI TECHNOLOGIES, INC.',
+    'ROBINHOOD MARKETS INC.', 'Coinbase, Inc.', 'Upstart Holdings, Inc.', 'Klarna AB',
+    'MoneyLion Inc.', 'TransferWise Ltd'
+)
+GROUP BY company_group
+ORDER BY complaints_since_2024 DESC;
